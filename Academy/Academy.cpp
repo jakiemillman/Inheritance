@@ -5,6 +5,14 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+#define delimeter "\n--------------------------------------------------------------------------------------------------------------------"
+
+#define HUMAN_TAKE_PARAMETRS const std::string& first_name, const std::string& last_name, unsigned int age
+#define HUMAN_GIVE_PARAMETRS first_name, last_name, age
+//#define inheritance
+
+
+
 class Human
 {
     std::string First_Name;
@@ -36,24 +44,27 @@ public:
     {
         this->age = age;
     }
-    void info() const
+    virtual void info() const
     {
         cout << First_Name << " " << Last_Name << " Age: " << age<<endl;
     }
 
     //Constructors;
-    Human(const std::string first_name, const std::string& last_name, unsigned int age)
+    Human(HUMAN_TAKE_PARAMETRS)
     {
         set_first_name(first_name);
         set_last_name(last_name);
         set_age(age);
         cout << "HConstructor:\t" << this << endl;
     }
-    ~Human()
+    virtual ~Human()
     {
         cout << "HDestructor:\t" << this<< endl;
     };
 };
+
+#define STUDENT_TAKE_PARAMETRS const std::string& speciality, const std::string& group, double rating, double attendence
+#define STUDENT_GIVE_PARAMETRS speciality, group, rating, attendence
 class Student : public Human
 {
     std::string speciality;
@@ -99,8 +110,7 @@ public:
         cout << speciality << " " << group << " Rating: " << rating <<" Attendence: "<< attendence << endl;
     }
     //Constructors
-    Student(const std::string first_name, const std::string& last_name, unsigned int age,
-        const std::string& speciality, const std::string& group, double rating, double attendence):Human(first_name, last_name, age)
+    Student(HUMAN_TAKE_PARAMETRS, STUDENT_TAKE_PARAMETRS):Human(HUMAN_GIVE_PARAMETRS)
     {
         set_speciality(speciality);
         set_group(group);
@@ -113,6 +123,8 @@ public:
         cout << "SDesstructor:\t" << this << endl;
     };
 };
+#define TEACHER_TAKE_PARAMETRS const std::string& speciality, const unsigned int& expirience, const std::string& skill
+#define TEACHER_GIVE_PARAMETRS speciality, expirience, skill
 class Teacher : public Human
 {
     unsigned int expirience;
@@ -149,8 +161,7 @@ public:
         cout << speciality << " Expirience: " << expirience << " Skill: " << skill <<  endl;
     }
     //  Countr/Destr
-    Teacher(const std::string first_name, const std::string& last_name, const unsigned int& age,
-        const std::string& speciality, const unsigned int& expirience, const std::string& skill) :Human(first_name, last_name, age)
+    Teacher(HUMAN_TAKE_PARAMETRS, TEACHER_TAKE_PARAMETRS) :Human(HUMAN_GIVE_PARAMETRS)
     {
         set_speciality(speciality);
         set_expirience(expirience);
@@ -164,16 +175,70 @@ public:
     };
 
 };
+class Graduate : public Student
+{
+    std::string topic;
+public:
+    const std::string& get_topic()
+    {
+        return topic;
+}
+    void set_topic(const std::string& topic)
+    {
+        this->topic = topic;
+    }
+    void info() const
+    {
+        Student::info();
+        cout << topic << endl;
+    }
+
+    //   constr/destr
+    Graduate(HUMAN_TAKE_PARAMETRS, STUDENT_TAKE_PARAMETRS, const std::string& topic):Student(HUMAN_GIVE_PARAMETRS, STUDENT_GIVE_PARAMETRS)
+    {
+        set_topic(topic);
+        cout << "GConstructor:\t" << this << endl;
+    };
+    ~Graduate() 
+    {
+        cout << "GDesstructor:\t" << this << endl;
+    };
+
+};
 
 int main()
 {
     setlocale(LC_ALL,"rus");
+#ifdef inheritance
     /*Human human("Тупенко", "Василий", 18);
     human.info();*/
     Student stud("Pinkman", "Jasie", 25, "Chemistry", "WW_220", 95, 99);
     stud.info();
     Teacher one("Strogova", "Tatiana", 50, "Math", 25, "Senior");
     one.info();
+    Graduate grad("Shreder", "Hank", 40, "Criminalictic", "OBN", 90, 70, "How to catch Hisenberg");
+    grad.info();
+#endif
+    Human* group[] =
+    {
+        new Student("Pinkman", "Jasie", 25, "Chemistry", "WW_220", 95, 99),
+        new Teacher("Strogova", "Tatiana", 50, "Math", 25, "Senior"),
+        new Graduate("Shreder", "Hank", 40, "Criminalictic", "OBN", 90, 70, "How to catch Hisenberg"),
+        new Student("Vercetti","Tomas",30, "Theft","Vice",98,100),
+        new Teacher("Diaz","Ricardo",50,"waepons distribution",50,"Senior")
+    };
+    cout << delimeter << endl;
+    for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
+    {
+       
+        group[i]->info();
+        cout << delimeter << endl;
+    }
+    for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
+    {
+
+        delete group[i];
+    }
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
