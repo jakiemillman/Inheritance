@@ -44,9 +44,9 @@ public:
     {
         this->age = age;
     }
-    virtual void info() const
+    virtual std::ostream& info(std::ostream& os) const
     {
-        cout << First_Name << " " << Last_Name << " Age: " << age<<endl;
+        return os << First_Name << " " << Last_Name << " Age: " << age;
     }
 
     //Constructors;
@@ -62,6 +62,10 @@ public:
         cout << "HDestructor:\t" << this<< endl;
     };
 };
+std::ostream& operator <<(std::ostream& os, const Human& obj)
+{
+    return obj.info(os);
+}
 
 #define STUDENT_TAKE_PARAMETRS const std::string& speciality, const std::string& group, double rating, double attendence
 #define STUDENT_GIVE_PARAMETRS speciality, group, rating, attendence
@@ -104,10 +108,9 @@ public:
     {
         this->attendence = attendence;
     }
-    void info() const
+    std::ostream& info(std::ostream& os) const override
     {
-        Human::info();
-        cout << speciality << " " << group << " Rating: " << rating <<" Attendence: "<< attendence << endl;
+        return Human::info(os)<<speciality << " " << group << " Rating: " << rating <<" Attendence: "<< attendence << endl;
     }
     //Constructors
     Student(HUMAN_TAKE_PARAMETRS, STUDENT_TAKE_PARAMETRS):Human(HUMAN_GIVE_PARAMETRS)
@@ -123,6 +126,7 @@ public:
         cout << "SDesstructor:\t" << this << endl;
     };
 };
+
 #define TEACHER_TAKE_PARAMETRS const std::string& speciality, const unsigned int& expirience, const std::string& skill
 #define TEACHER_GIVE_PARAMETRS speciality, expirience, skill
 class Teacher : public Human
@@ -155,10 +159,9 @@ public:
     {
         this->speciality = speciality;
     }
-    void info() const
+    std::ostream& info(std::ostream& os) const override
     {
-        Human::info();
-        cout << speciality << " Expirience: " << expirience << " Skill: " << skill <<  endl;
+       return  Human::info(os)<< speciality << " Expirience: " << expirience << " Skill: " << skill <<  endl;
     }
     //  Countr/Destr
     Teacher(HUMAN_TAKE_PARAMETRS, TEACHER_TAKE_PARAMETRS) :Human(HUMAN_GIVE_PARAMETRS)
@@ -187,10 +190,9 @@ public:
     {
         this->topic = topic;
     }
-    void info() const
+    std::ostream& info(std::ostream& os) const override
     {
-        Student::info();
-        cout << topic << endl;
+        return Student::info(os)<< topic;
     }
 
     //   constr/destr
@@ -231,7 +233,7 @@ int main()
     for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)
     {
        
-        group[i]->info();
+        cout<<*group[i]<<endl;
         cout << delimeter << endl;
     }
     for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++)

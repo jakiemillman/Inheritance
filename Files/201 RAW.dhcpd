@@ -1,0 +1,65 @@
+Host 201-0
+{
+	hardware ethernet: 192.168.100.21;
+	fixed-address: 00-19-99-b4-c2-ae;
+}
+Host 201-1
+{
+	hardware ethernet: 192.168.100.22;
+	fixed-address: 00-19-99-ae-a8-8e;
+}
+Host 201-2
+{
+	hardware ethernet: 192.168.100.23;
+	fixed-address: 00-19-99-b5-e9-9b;
+}
+Host 201-3
+{
+	hardware ethernet: 192.168.100.24;
+	fixed-address: 00-19-99-b4-a2-ed;
+}
+Host 201-4
+{
+	hardware ethernet: 192.168.100.25;
+	fixed-address: 00-19-99-ad-4f-51;
+}
+Host 201-5
+{
+	hardware ethernet: 192.168.100.26;
+	fixed-address: 00-19-99-dc-52-80;
+}
+Host 201-6
+{
+	hardware ethernet: 192.168.100.27;
+	fixed-address: 00-19-99-b4-a2-fb;
+}
+Host 201-7
+{
+	hardware ethernet: 192.168.100.28;
+	fixed-address: 00-19-99-b2-b3-e6;
+}
+Host 201-8
+{
+	hardware ethernet: 192.168.100.29;
+	fixed-address: 00-19-99-ae-a5-59;
+}
+Host 201-9
+{
+	hardware ethernet: 192.168.100.30;
+	fixed-address: 00-19-99-dc-52-77;
+}
+Host 201-10
+{
+	hardware ethernet: 192.168.100.31;
+	fixed-address: 00-19-99-ac-b8-11;
+}
+Host 201-11
+{
+	hardware ethernet: 192.168.100.32;
+	fixed-address: 00-19-99-b5-e9-4d;
+}
+Host 201-12
+{
+	hardware ethernet: ;
+	fixed-address: ;
+}
